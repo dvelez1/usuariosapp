@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { usersApi } from "../api/userAPI";
+import React from "react";
+// I created a Custom Hook, that will handle the related logic to the component
+import { useUsers } from "../hooks/useUsers";
 
 export const UsersPage = () => {
-  const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    getUsers();
-  }, []);
-
-  const getUsers = async () => {
-    const resp = await usersApi.get("https://reqres.in/api/users");
-    setUsers(resp.data.data);
-  };
+  const { users } = useUsers();
 
   return (
     <div className="mt-5">
@@ -27,18 +20,21 @@ export const UsersPage = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map(user => (
+          {users.map((user) => (
             <tr key={user.email}>
               <td>{user.id}</td>
               <td>{user.email}</td>
-              <td>{user.first_name} {user.last_name}</td>
               <td>
-                <img 
-                src={user.avatar}
-                className="img-thumbnail"
-                style={{
-                    width:50
-                }}
+                {user.first_name} {user.last_name}
+              </td>
+              <td>
+                <img
+                  src={user.avatar}
+                  className="img-thumbnail"
+                  style={{
+                    width: 50,
+                  }}
+                  alt={ user.last_name }
                 />
               </td>
             </tr>
