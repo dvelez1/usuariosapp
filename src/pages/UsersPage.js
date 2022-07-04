@@ -1,6 +1,9 @@
 import React from "react";
 // I created a Custom Hook, that will handle the related logic to the component
 import { useUsers } from "../hooks/useUsers";
+import { UserRow } from "../components/UserRow";
+
+
 
 export const UsersPage = () => {
 
@@ -20,7 +23,14 @@ export const UsersPage = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+            {/* I created a component with the row of the table. I sending the key required for the map and the user list */}
+            {
+                users.map( user => <UserRow 
+                    key={user.email} 
+                    user={user}/>)
+            }
+
+          {/*{users.map((user) => (
             <tr key={user.email}>
               <td>{user.id}</td>
               <td>{user.email}</td>
@@ -38,7 +48,7 @@ export const UsersPage = () => {
                 />
               </td>
             </tr>
-          ))}
+          ))} */}
         </tbody>
       </table>
     </div>
